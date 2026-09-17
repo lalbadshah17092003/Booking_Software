@@ -1,0 +1,165 @@
+/* CreateUser.css */
+
+/* CreateUser Modern Styles */
+.create1-user-bg {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+  padding: 0;
+}
+
+.create1-user-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100vw;
+  padding: 0;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 24px;
+  box-shadow: 0 12px 40px rgba(102, 126, 234, 0.15), 0 2px 8px rgba(0,0,0,0.08);
+  padding: 40px 32px 32px 32px;
+  max-width: 400px;
+  width: 100%;
+  border: 1.5px solid rgba(102, 126, 234, 0.12);
+  backdrop-filter: blur(12px);
+  animation: fadeInUp 0.8s cubic-bezier(0.4,0,0.2,1);
+  position: relative;
+}
+
+.create1-user-heading {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 8px rgba(102, 126, 234, 0.08);
+  animation: fadeInDown 0.8s cubic-bezier(0.4,0,0.2,1);
+}
+
+.create1-user-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.create1-user-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 1.05em;
+  background: rgba(255,255,255,0.95);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  margin: 0;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.create1-user-input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.13);
+  background: #f7faff;
+}
+
+.create1-user-button {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.15em;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  box-shadow: 0 4px 18px rgba(102, 126, 234, 0.13);
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+  letter-spacing: 1px;
+}
+
+.animated-btn {
+  animation: fadeInUp 0.8s cubic-bezier(0.4,0,0.2,1) 0.2s both;
+}
+
+.create1-user-button:hover, .create1-user-button:focus {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.18);
+}
+
+.create1-user-error, .create1-user-success {
+  text-align: center;
+  margin-top: 10px;
+  padding: 12px 10px;
+  border-radius: 8px;
+  font-size: 1em;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.08);
+  animation: fadeInDown 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+
+.create1-user-error {
+  color: #fff;
+  background: linear-gradient(135deg, #e74c3c 0%, #fd7e14 100%);
+  border: 1.5px solid #e74c3c;
+}
+
+.create1-user-success {
+  color: #fff;
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  border: 1.5px solid #28a745;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in-slide {
+  animation: fadeInUp 0.8s cubic-bezier(0.4,0,0.2,1);
+}
+
+.shake-anim {
+  animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+}
+@keyframes shake {
+  10%, 90% { transform: translateX(-2px); }
+  20%, 80% { transform: translateX(4px); }
+  30%, 50%, 70% { transform: translateX(-8px); }
+  40%, 60% { transform: translateX(8px); }
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .glass-card {
+    padding: 20px 8px 18px 8px;
+    max-width: 98vw;
+    border-radius: 14px;
+  }
+  .create1-user-heading {
+    font-size: 1.3rem;
+    margin-bottom: 18px;
+  }
+  .create1-user-input {
+    font-size: 0.98em;
+    padding: 11px 10px;
+    border-radius: 7px;
+  }
+  .create1-user-button {
+    font-size: 1em;
+    padding: 12px;
+    border-radius: 7px;
+  }
+}

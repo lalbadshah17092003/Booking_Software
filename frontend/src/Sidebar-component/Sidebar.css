@@ -1,0 +1,221 @@
+
+/* Sidebar Container */
+.sidebar {
+
+  border-right: 2px solid #e0e0e0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
+  border: 1px #000000;
+  border-style: solid;
+  border-radius: 19px;
+  gap: 12px;
+  overflow-y: auto;
+  transition: width 0.3s ease-in-out;
+  top: 0;
+  left: 0;
+  width: 230px; /* Fixed width */
+  color: white;
+  padding: 20px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 10;
+}
+
+/* Accordion Style for the Dropdowns */
+.MuiAccordion-root {
+  background-color: #ffffff77;
+  color: black;
+}
+
+.MuiAccordionSummary-root {
+  background-color: #f5f5f577;
+  border-radius: 5px;
+  padding: 10px 15px;
+  color: black;
+}
+
+.MuiAccordionSummary-content {
+  font-weight: 600;
+}
+
+/* Accordion Details */
+.MuiAccordionDetails-root {
+  padding: 0;
+}
+
+.MuiButton-root {
+  text-transform: none;
+  padding: 10px 15px;
+  color: #000000;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: black;
+ 
+}
+
+/* Hover Effect for Buttons */
+.MuiButton-root:hover {
+  background-color: #f1f1f1;
+}
+
+/* Profile section styling */
+
+/* Logout Button */
+.MuiButton-root.logout-btn {
+  background-color: #f44336;
+  color: white;
+  font-weight: bold;
+  padding: 12px;
+  border-radius: 5px;
+  text-transform: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Hover Effect for Logout Button */
+.MuiButton-root.logout-btn:hover {
+  background-color: #e53935;
+}
+
+/* Dropdown List Style */
+.MuiAccordionSummary-expandIcon {
+  transition: transform 0.3s ease-in-out;
+}
+
+/* For active or expanded dropdown */
+.MuiAccordion-expanded .MuiAccordionSummary-expandIcon {
+  transform: rotate(180deg);
+}
+/* Active (Clicked) Button Style */
+.sidebar .MuiButton-root.active {
+  background-color: #080707;   /* Light grey background */
+   background-color: #fdf9f9de;           /* Ensure text stays black */
+  font-weight: bold;           /* Make it visually stand out */
+  border-left: 4px solid #4caf50;  /* Optional: green highlight on the side */
+  border-radius: 0 5px 5px 0;      /* Rounded edges only on right side */
+}
+
+
+.profile-container {
+  padding: 10px;
+  background-color: #020202;
+  border-radius: 8px;
+  font-size: 14px;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+}
+
+.profile-details {
+  text-align: left;
+  font-size: 14px;
+  margin: 5px 0;
+  color: #333;
+}
+.profile-details b {
+  color: #000000;
+}
+
+
+.sidebar.closed {
+  width: 60px; /* Closed width */
+  padding: 8px;
+  overflow-x: hidden;
+  min-width:60px ;
+  max-width:60px ;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.sidebar.closed .sidebar-header h3 {
+  display: none;
+}
+
+.sidebar-header button {
+  padding: 8px;
+  
+}
+
+.sidebar.closed .MuiAccordionSummary-expandIconWrapper {
+  transform: rotate(-90deg) !important;
+}
+
+.sidebar .MuiAccordionSummary-content {
+  display: flex;
+  align-items: center;
+}
+
+.sidebar.closed .MuiAccordionSummary-content > span {
+  display: none;
+}
+
+.sidebar .MuiButton-startIcon {
+  margin-right: 8px;
+}
+
+.sidebar.closed .MuiButton-startIcon {
+  margin-right: 0;
+}
+
+.sidebar .MuiAccordionDetails-root {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 8px;
+}
+
+.sidebar.closed .MuiAccordionDetails-root button > span {
+  margin-right: 20px;
+}
+
+.sidebar.closed .logout-btn {
+ padding: 6px;
+ margin-right: 40px;
+}
+
+.sidebar.closed .logout-btn > span {
+  display: none;
+}
+
+.sidebar .profile-container {
+  margin-top: 16px;
+  padding: 12px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+}
+
+.sidebar.closed .profile-container {
+  display: none;
+}
+
+.sidebar .profile-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  
+  .sidebar.open {
+    width: 320px;
+    font-size: smaller; /* Adjust for smaller screens */
+  }
+  .sidebar.closed{
+    width: 60px;
+  }
+ 
+} 
+.sidebar.open{
+  min-width: 250px;
+  max-width: 250px;
+}

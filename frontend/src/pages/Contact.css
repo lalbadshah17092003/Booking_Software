@@ -1,0 +1,93 @@
+/* Apply a background image to the contact page */
+.contact-background {
+  background-image: url("../styles/contact3.jpg"); /* Set the path to your image */
+  background-size: cover; /* Cover the entire area */
+  background-position: center; /* Center the image */
+  background-attachment: fixed; /* Fix the background image during scrolling */
+  height: 100vh; /* Make sure the height covers the full viewport */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.contact-content {
+  background-color: rgba(
+    180,
+    249,
+    239,
+    0.6
+  ); /* Transparent white background for form */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  display: flex;
+  max-width: 800px; /* Set a max width to ensure it doesn’t stretch too much on large screens */
+}
+
+.contact-info {
+  margin-bottom: 20px;
+}
+.contact-form {
+  margin-left: 10px;
+  margin-bottom: 20px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.contact-item {
+  font-weight: bold;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.contact-item svg {
+  margin-right: 10px;
+}
+
+.t1 {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.t1 th,
+.t1 td {
+  padding: 10px;
+}
+
+.t1 input {
+  width: 90%;
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.cu {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 10em;
+}
+
+.cu:hover {
+  background-color: #45a049;
+}
+
+.h22 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+}

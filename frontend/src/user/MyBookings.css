@@ -1,0 +1,561 @@
+/* MyMeetings.css */
+/* General Layout */
+.main-content-container {
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.my-bookings {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+ 
+}
+
+.my-bookings h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #4caf50;
+  font-weight: bold;
+}
+
+.my-bookings-error {
+  color: red;
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 20px;
+}
+
+/* Table Styles */
+.bookings-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.bookings-table th,
+.bookings-table td {
+  padding: 12px;
+  text-align: center;
+  border: 2px solid #000000;
+}
+
+.bookings-table th {
+  background-color: #4caf50;
+  color: white;
+}
+
+.bookings-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.bookings-table tr:hover {
+  background-color: #d38c8c;
+  transition: background-color 0.3s;
+}
+
+.bookings-table td button {
+  padding: 8px 15px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.bookings-table td button:hover {
+  background-color: #45a049;
+}
+
+/* Edit and Cancel Buttons */
+.btn1[type="button"] {
+  padding: 8px 16px;
+  margin: 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #f0ad4e;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.btn1 [type="button"]:hover {
+  background-color: #ec971f;
+}
+
+/* Edit Booking Form */
+.edit-booking-form {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: formSlideIn 0.5s ease-out;
+}
+
+.edit-booking-form h3 {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.edit-booking-form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.edit-booking-form input {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.edit-booking-form button {
+  background-color: #5bc0de;
+  padding: 10px 20px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin: 10px 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.edit-booking-form button:hover {
+  background-color: #31b0d5;
+}
+
+.edit-booking-form button[type="button"] {
+  background-color: #d9534f;
+}
+
+.edit-booking-form button[type="button"]:hover {
+  background-color: #c9302c;
+}
+
+/* Table Fade-in Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Slide-in Effect for Edit Booking Form */
+@keyframes formSlideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Modal Popup */
+.edit-booking-form .modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.edit-booking-form .modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+}
+
+.modal-open .modal {
+  display: block;
+}
+
+/* MyBookings Container */
+.my-bookings-container {
+ 
+  min-height: 100vh;
+  padding: 24px;
+  animation: fadeIn 0.6s ease;
+}
+
+/* Header Styling */
+.my-bookings-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 24px;
+  border-radius: 16px;
+  margin-bottom: 24px;
+  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.my-bookings-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+  pointer-events: none;
+}
+
+.my-bookings-header h4 {
+  margin: 0;
+  font-weight: 700;
+  font-size: 2rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 1;
+}
+
+/* Table Styling */
+.my-bookings-table {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  animation: slideInUp 0.6s ease;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.my-bookings-table .MuiTableHead-root {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.my-bookings-table .MuiTableHead-root .MuiTableCell-head {
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: none;
+  padding: 16px;
+}
+
+.my-bookings-table .MuiTableBody-root .MuiTableRow-root {
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.my-bookings-table .MuiTableBody-root .MuiTableRow-root:hover {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.my-bookings-table .MuiTableBody-root .MuiTableCell-body {
+  padding: 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  font-weight: 500;
+}
+
+/* Status Chip Styling */
+.status-chip {
+  border-radius: 20px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  padding: 4px 12px !important;
+  transition: all 0.3s ease !important;
+}
+
+.status-chip:hover {
+  transform: scale(1.05) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+}
+
+.status-pending {
+  background: linear-gradient(135deg, #ffd54f 0%, #ffb300 100%) !important;
+  color: #333 !important;
+}
+
+.status-approved {
+  background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%) !important;
+  color: white !important;
+}
+
+.status-ongoing {
+  background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%) !important;
+  color: white !important;
+}
+
+.status-completed {
+  background: linear-gradient(135deg, #9c27b0 0%, #7b1fa2 100%) !important;
+  color: white !important;
+}
+
+.status-cancelled {
+  background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%) !important;
+  color: white !important;
+}
+
+/* Action Buttons */
+.action-button {
+  border-radius: 12px !important;
+  padding: 8px 16px !important;
+  margin: 0 4px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.action-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.action-button:hover::before {
+  left: 100%;
+}
+
+.action-button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2) !important;
+}
+
+.join-meeting-button {
+  background: linear-gradient(135deg, #0078d4 0%, #106ebe 100%) !important;
+  color: white !important;
+  border-radius: 20px !important;
+  padding: 8px 16px !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 15px rgba(0, 120, 212, 0.3) !important;
+}
+
+.join-meeting-button:hover {
+  background: linear-gradient(135deg, #106ebe 0%, #005a9e 100%) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 25px rgba(0, 120, 212, 0.4) !important;
+}
+
+/* Dialog Styling */
+.booking-dialog .MuiDialog-paper {
+  border-radius: 16px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2) !important;
+  overflow: hidden !important;
+}
+
+.booking-dialog .MuiDialogTitle-root {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 24px !important;
+}
+
+.booking-dialog .MuiDialogContent-root {
+  padding: 24px !important;
+}
+
+.booking-dialog .MuiDialogActions-root {
+  padding: 16px 24px !important;
+  background: #f8f9fa;
+}
+
+/* Room Selection Cards */
+.room-card {
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  cursor: pointer !important;
+  border: 2px solid transparent !important;
+}
+
+.room-card:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+.room-card.selected {
+  border-color: #667eea !important;
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3) !important;
+}
+
+.room-card .MuiCardMedia-root {
+  height: 140px;
+  transition: all 0.3s ease;
+}
+
+.room-card:hover .MuiCardMedia-root {
+  transform: scale(1.05);
+}
+
+.room-card .MuiCardContent-root {
+  text-align: center;
+  padding: 16px !important;
+}
+
+/* Snackbar Styling */
+.custom-snackbar {
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+.custom-snackbar .MuiAlert-root {
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+}
+
+/* Loading Animation */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+.loading-spinner {
+  color: #667eea !important;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+}
+
+.empty-state-icon {
+  font-size: 4rem !important;
+  color: #ccc;
+  margin-bottom: 16px;
+}
+
+.empty-state-text {
+  color: #666;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .my-bookings-container {
+    padding: 16px;
+  }
+  
+  .my-bookings-header {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .my-bookings-header h4 {
+    font-size: 1.5rem;
+  }
+  
+  .my-bookings-table .MuiTableCell-body,
+  .my-bookings-table .MuiTableCell-head {
+    padding: 12px 8px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+/* Shimmer Loading Effect */
+.shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.conflict-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #f7971e 0%, #fd5e53 100%);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.08rem;
+  border-radius: 12px;
+  padding: 14px 20px;
+  margin-bottom: 18px;
+  box-shadow: 0 4px 18px rgba(253, 94, 83, 0.13);
+  animation: fadeInSlide 0.7s cubic-bezier(0.4,0,0.2,1);
+  letter-spacing: 0.2px;
+}
+.conflict-banner .msg-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+  margin-right: 8px;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.08));
+}
+@media (max-width: 600px) {
+  .conflict-banner {
+    padding: 8px 6px;
+    font-size: 0.98rem;
+    gap: 6px;
+  }
+  .conflict-banner .msg-icon {
+    font-size: 1.3rem;
+    margin-right: 4px;
+  }
+}

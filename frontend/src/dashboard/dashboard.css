@@ -1,0 +1,361 @@
+/* dashboard.css */
+@import url(https://fonts.googleapis.com/css?family=Exo+2:200i);
+
+@font-face {
+  font-family: 'MyCustomFont5';
+  src: url('../fonts/TexasCrustPersonalUseReg-w1nrw.ttf') format('truetype');
+}
+.dashboard-container {
+  display: flex;
+  max-height: 100vh;
+  gap: 0.3em;
+  background-image: url("../styles/AUM_0327.webp");
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  border-radius: 20px;
+}
+
+.dashboard {
+  flex-grow: 1;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 10;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth background-image: linear-gradient(135deg, #81FFEF 10%, #F067B4 100%); */
+  overflow-x: auto; /* Scrollable if content overflows */
+  border-radius: 19px;
+  border: 1px #000000;
+  border-style: solid;
+}
+/* Basic styling for the heading */
+.welcome-heading {
+ font-family: 'MyCustomFont5';/* Modern, professional font */
+  font-size: 2.rem; /* Adjust the size for better readability */
+  font-weight: 600; /* Slightly bold */
+  text-align: center;
+  color: #000000; /* Dark gray for a professional feel */
+  margin-top: 20px;
+  padding: 15px;
+  letter-spacing: 1.5px; /* Spacing between letters for clarity */
+  line-height: 1.4; /* Line height for better spacing */
+  transition: transform 0.3s ease, color 0.3s ease; /* Smooth transition for hover effects */
+  position: relative;
+  background-color: #fdf9f9de;
+  border-radius: 9px;
+}
+
+/* Subtle underline effect on hover */
+.welcome-heading::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 2px;
+  background-color: #3498db; /* Professional blue */
+  transition: width 0.3s ease;
+  margin: 10px auto 0;
+}
+
+.welcome-heading:hover {
+  transform: translateY(-5px); /* Slight lift effect on hover */
+  color: #3498db; /* Change text color on hover to blue */
+}
+
+.welcome-heading:hover::after {
+  width: 100%; /* Extend the underline when hovered */
+}
+
+
+
+
+.welcome-heading {
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+}
+/* Container to cover the entire screen */
+.session-expired-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal content styling */
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 300px;
+  text-align: center;
+}
+
+/* Header styling */
+.modal-content h2 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Paragraph styling */
+.modal-content p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Button styling */
+.modal-content button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Button hover effect */
+.modal-content button:hover {
+  background-color: #0056b3;
+}
+
+
+
+
+
+
+/* Main card container – clean white with blue accents */
+.db2-welcome-card {
+  background-color: #ffffff;
+  border-radius: 2.5rem;
+  padding: 1rem 1rem;
+  box-shadow: 
+    0 25px 50px rgba(20, 60, 140, 0.12),
+    0 8px 20px rgba(15, 45, 120, 0.08),
+    0 2px 6px rgba(10, 30, 90, 0.05);
+  border: 1px solid rgba(180, 200, 230, 0.5);
+  min-height: 10%;
+  max-height: 10%;
+  width: 100%;
+  text-align: center;
+  transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1), box-shadow 0.4s ease;
+  animation: cardFloat 2.8s infinite ease-in-out;
+  position: relative;
+  z-index: 10;
+  overflow: hidden;
+}
+
+/* Subtle blue glow behind card */
+.db2-welcome-card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at center, rgba(70, 130, 220, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Top blue accent bar */
+.top-accent {
+  width: 80px;
+  height: 5px;
+  background: linear-gradient(90deg, #1a56db, #3b82f6, #60a5fa);
+  border-radius: 10px;
+  margin: 0 auto 2rem;
+  animation: accentPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes accentPulse {
+  0%, 100% { 
+    width: 80px;
+    opacity: 0.8;
+  }
+  50% { 
+    width: 120px;
+    opacity: 1;
+  }
+}
+
+/* Subtle floating animation for the card */
+@keyframes cardFloat {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.db2-welcome-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 
+    0 35px 60px rgba(20, 60, 140, 0.18),
+    0 12px 28px rgba(15, 45, 120, 0.1),
+    0 2px 8px rgba(10, 30, 90, 0.06);
+  animation-play-state: paused;
+}
+
+/* Title styling – elegant blue gradient */
+.db2-welcome-title {
+  font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+  font-weight: 600;
+  font-size: clamp(1rem, 10vw, 2rem);
+  letter-spacing: 0.03em;
+  line-height: 1.1;
+  margin: 0.10rem 0 0.30rem;
+  position: relative;
+  display: inline-block;
+  background: linear-gradient(135deg, #165283 0%, #165283 35%, #165283 65%, #165283 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 2px 4px rgba(30, 80, 200, 0.15));
+  animation: titleReveal 1.4s cubic-bezier(0.23, 1, 0.32, 1) forwards, gentleShimmer 4s infinite alternate;
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* Graceful entrance animation */
+@keyframes titleReveal {
+  0% {
+    opacity: 0;
+    letter-spacing: 0.2em;
+    transform: translateY(18px);
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    letter-spacing: 0.03em;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* Soft shimmer effect on the text */
+@keyframes gentleShimmer {
+  0% {
+    filter: drop-shadow(0 2px 4px rgba(30, 80, 200, 0.12));
+  }
+  100% {
+    filter: drop-shadow(0 3px 8px rgba(30, 80, 200, 0.22));
+  }
+}
+
+/* Subtitle – blue-gray uppercase */
+.db2-welcome-sub {
+  font-family: Snell Roundhand, cursive;
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #4a6fa5;
+  margin-top: -0.2rem;
+  margin-bottom: 1rem;
+  opacity: 0.85;
+  display: inline-block;
+  padding: 0.4rem 1.4rem;
+  animation: fadeInSub 1.8s ease-out;
+}
+
+@keyframes fadeInSub {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 0.85; transform: translateY(0); }
+}
+
+/* Decorative divider */
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  max-width: 280px;
+}
+
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #b0c8e8, #7aa3d8, #b0c8e8, transparent);
+}
+
+.divider-icon {
+  color: #3b82f6;
+  font-size: 0.9rem;
+  opacity: 0.7;
+  animation: rotateIcon 4s linear infinite;
+}
+
+@keyframes rotateIcon {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Additional layout container */
+.db2-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Icon row with blue tones */
+.icon-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  justify-content: center;
+  margin-top: 0.8rem;
+  font-size: 1.2rem;
+  opacity: 0.75;
+  animation: fadeInSub 2s ease;
+}
+
+.icon-row span {
+  transition: transform 0.3s ease, filter 0.2s;
+  filter: grayscale(0%);
+}
+
+.icon-row span:hover {
+  transform: translateY(-5px) scale(1.15);
+  filter: drop-shadow(0 4px 8px rgba(30, 80, 200, 0.3));
+  opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 550px) {
+  .db2-welcome-card {
+    padding: 2.5rem 1.8rem;
+    border-radius: 2rem;
+  }
+  .db2-welcome-title {
+    font-size: 2.2rem;
+  }
+  .db2-welcome-sub {
+    font-size: 0.85rem;
+    padding: 0.4rem 1.2rem;
+    letter-spacing: 0.2em;
+  }
+  .icon-row {
+    gap: 1.4rem;
+    font-size: 1.4rem;
+  }
+}
