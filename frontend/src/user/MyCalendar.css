@@ -225,7 +225,12 @@
 }
 
 .legend-color.ongoing {
-  background: #165286;
+  background: #087ea4;
+}
+
+.legend-color.mine {
+  background: #ffffff;
+  border: 2px solid #165283;
 }
 
 .view-buttons {
@@ -385,7 +390,25 @@
 }
 
 .calendar-event-ongoing {
-  background: #165286 !important;
+  background: #087ea4 !important;
+}
+
+.calendar-event-closed {
+  background: #687386 !important;
+}
+
+.calendar-event-pending {
+  background: #d98200 !important;
+}
+
+.calendar-event-declined,
+.calendar-event-cancelled {
+  background: #bd3445 !important;
+}
+
+.calendar-event-mine {
+  border: 2px solid #102f4d !important;
+  box-shadow: 0 0 0 1px #ffffff;
 }
 
 /* Timegrid event styling */
@@ -574,6 +597,22 @@
 .status-badge-calendar.status-ongoing {
   background: #d1ecf1;
   color: #165286;
+}
+
+.status-badge-calendar.status-closed {
+  background: #e5e7eb;
+  color: #475569;
+}
+
+.status-badge-calendar.status-pending {
+  background: #fff0cc;
+  color: #9a5b00;
+}
+
+.status-badge-calendar.status-declined,
+.status-badge-calendar.status-cancelled {
+  background: #fde2e4;
+  color: #a61b2b;
 }
 
 .cc-tags-calendar {

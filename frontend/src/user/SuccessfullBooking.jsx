@@ -16,7 +16,7 @@ const SuccessfullBooking = () => {
     const fetchSuccessfulBookings = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('https://01-30225:1010/api/booking/successful');
+        const response = await axios.get('https://192.168.0.150:5000/api/booking/successful');
         setBookings(response.data);
       } catch (err) {
         setError('Failed to fetch booking data');

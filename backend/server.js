@@ -168,15 +168,6 @@ const authenticateToken = (req, res, next) => {
     next();
   });
 };
-// === DB CONNECT ===
-mongoose
-  .connect(process.env.MONGO_URI || "mongodb://localhost:27017/employeeDB")
-  .then(() => console.log("✅ MongoDB connected"))
-  .catch((err) => {
-    console.error(err);
-    process.exit(1);
-  });
-
 const upload = multer({ storage: storage });
 
 /////////////////////////////////////////////////////////////////////////////////////////////// Define Employee schema
@@ -205,6 +196,38 @@ const employeeSchema = new mongoose.Schema({
 
 // Create Employee model
 const Employee = mongoose.model("Employee", employeeSchema);
+
+// Ensure the first administrator exists before the server accepts requests.
+async function ensureDefaultAdmin() {
+  const existingAdmin = await Employee.findOne({ userRole: "Admin" });
+  if (existingAdmin) {
+    console.log(`Admin account already exists: ${existingAdmin.employeeId}`);
+    return;
+  }
+
+  const employeeId = (process.env.ADMIN_EMPLOYEE_ID || "admin").trim();
+  const password = process.env.ADMIN_PASSWORD;
+  if (!password) {
+    throw new Error("No admin account exists. Set ADMIN_PASSWORD in backend/.env to create the initial admin.");
+  }
+
+  const existingEmployee = await Employee.findOne({ employeeId });
+  if (existingEmployee) {
+    throw new Error(`Cannot create default admin: employeeId ${employeeId} is already in use by a non-admin account.`);
+  }
+
+  const admin = new Employee({
+    name: process.env.ADMIN_NAME || "Administrator",
+    employeeId,
+    ...(process.env.ADMIN_EMAIL && { email: process.env.ADMIN_EMAIL }),
+    password: await bcrypt.hash(password, 10),
+    userRole: "Admin",
+    createdBy: "system",
+    requiresPasswordReset: true,
+  });
+  await admin.save();
+  console.log(`Default admin account created: ${employeeId}`);
+}
 
 // Register employee (POST)
 app.post("/api/register", async (req, res) => {
@@ -604,6 +627,7 @@ const bookingSchema = new mongoose.Schema({
 });
 
 const Booking = mongoose.model("Booking", bookingSchema);
+const BOOKING_CONFLICT_STATUSES = ["pending", "approved", "ongoing", "completed"];
 // ======================================================
 // 📅 Create Booking (with Recurrence + Reception Email)
 // ======================================================
@@ -661,7 +685,7 @@ app.post(
           const conflict = await Booking.findOne({
             room,
             date: currentDateStr,
-            status: { $in: ["approved", "ongoing"] },
+            status: { $in: BOOKING_CONFLICT_STATUSES },
             $or: [{ startTime: { $lt: endTime }, endTime: { $gt: startTime } }],
           });
           if (conflict) {
@@ -769,7 +793,7 @@ app.post(
       const conflictingBookings = await Booking.find({
         room,
         date,
-        status: { $in: ["approved", "ongoing"] },
+        status: { $in: BOOKING_CONFLICT_STATUSES },
         $or: [{ startTime: { $lt: endTime }, endTime: { $gt: startTime } }],
       });
 
@@ -878,7 +902,7 @@ app.put("/api/booking/:id", authenticateToken, async (req, res) => {
         _id: { $ne: booking._id },
         room: booking.room,
         date: booking.date,
-        status: { $in: ["approved", "ongoing"] },
+        status: { $in: BOOKING_CONFLICT_STATUSES },
         $or: [
           { startTime: { $lt: booking.endTime }, endTime: { $gt: booking.startTime } },
         ],
@@ -1033,7 +1057,7 @@ app.put("/api/booking/update/:id", authenticateToken, async (req, res) => {
     const conflicts = await Booking.find({
       room,
       date,
-      status: { $in: ["approved", "ongoing"] },
+      status: { $in: BOOKING_CONFLICT_STATUSES },
       _id: { $ne: req.params.id },
       $or: [{ startTime: { $lt: endTime }, endTime: { $gt: startTime } }],
     });
@@ -1581,7 +1605,7 @@ app.put("/api/booking/update/:id", authenticateToken, async (req, res) => {
     const conflicts = await Booking.find({
       room,
       date,
-      status: { $in: ["approved", "ongoing"] },
+      status: { $in: BOOKING_CONFLICT_STATUSES },
       _id: { $ne: req.params.id },
       $or: [{ startTime: { $lt: endTime }, endTime: { $gt: startTime } }],
     });
@@ -1857,7 +1881,7 @@ app.post("/api/booking/edit", authenticateToken, async (req, res) => {
   const conflictingBookings = await Booking.find({
     date,
     room,
-    status: { $in: ["approved", "ongoing"] },
+    status: { $in: BOOKING_CONFLICT_STATUSES },
     $or: [
       { startTime: { $lt: endTime }, endTime: { $gt: startTime } },
       { startTime: { $gte: startTime, $lt: endTime } },
@@ -3088,13 +3112,28 @@ app.use((req, res, next) => {
   });
 });
 
-// === START HTTPS SERVER ===
-https
-  .createServer(
-    { key: fs.readFileSync(keyFile), cert: fs.readFileSync(certFile) },
-    app
-  )
-  .listen(process.env.PORT || 1010, "0.0.0.0", () => {
-    const port = process.env.PORT || 1010;
-    console.log(`✅ Server also accessible at https://01-30225:${port}`);
-  });
+// === START HTTPS SERVER AFTER DATABASE AND ADMIN BOOTSTRAP ===
+async function startServer() {
+  try {
+    await mongoose.connect(
+      process.env.MONGO_URI || "mongodb://localhost:27017/employeeDB"
+    );
+    console.log("MongoDB connected");
+    await ensureDefaultAdmin();
+
+    const port = process.env.PORT || 5000;
+    https
+      .createServer(
+        { key: fs.readFileSync(keyFile), cert: fs.readFileSync(certFile) },
+        app
+      )
+      .listen(port, "0.0.0.0", () => {
+        console.log(`Server also accessible at https://192.168.0.150:${port}`);
+      });
+  } catch (err) {
+    console.error("Server startup failed:", err.message);
+    process.exit(1);
+  }
+}
+
+startServer();

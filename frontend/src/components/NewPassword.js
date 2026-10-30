@@ -33,7 +33,7 @@ const NewPassword = () => {
 
       // Fetch employee name using employeeId
       axios
-        .get(`https://01-30225:1010/api/employees/${empId}`, {
+        .get(`https://192.168.0.150:5000/api/employees/${empId}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => {
@@ -78,7 +78,7 @@ const NewPassword = () => {
 
   try {
   await axios.put(
-    `https://01-30225:1010/api/employees/${employeeInfo.employeeId}/update-password`,
+    `https://192.168.0.150:5000/api/employees/${employeeInfo.employeeId}/update-password`,
     { newPassword: formData.newPassword },
     { headers: { Authorization: `Bearer ${token}` } }
   );

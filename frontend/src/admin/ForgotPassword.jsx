@@ -54,7 +54,7 @@ const ForgotPassword = () => {
     const fetchEmployees = async () => {
       try {
         const response = await axios.get(
-          "https://01-30225:1010/api/employees",
+          "https://192.168.0.150:5000/api/employees",
           {
             headers: {
               Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -97,7 +97,7 @@ const ForgotPassword = () => {
   const handleSaveEdit = async (id) => {
     try {
       const response = await axios.put(
-        `https://01-30225:1010/api/employees/${id}`,
+        `https://192.168.0.150:5000/api/employees/${id}`,
         formData
       );
       setEmployees((prev) =>
@@ -114,7 +114,7 @@ const ForgotPassword = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://01-30225:1010/api/employees/${id}`);
+      await axios.delete(`https://192.168.0.150:5000/api/employees/${id}`);
       setEmployees((prev) => prev.filter((emp) => emp._id !== id));
       showSnackbar("User deleted");
     } catch (err) {
@@ -131,7 +131,7 @@ const ForgotPassword = () => {
 
     try {
       const response = await axios.put(
-        `https://01-30225:1010/api/employees/${formData.employeeId}/change-password`,
+        `https://192.168.0.150:5000/api/employees/${formData.employeeId}/change-password`,
         {
           newPassword: formData.newPassword,
           confirmPassword: formData.confirmPassword,

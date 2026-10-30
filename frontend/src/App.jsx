@@ -1,13 +1,11 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
 import Dashboard from "./dashboard/Dashboard";
 import CreateUser from "./admin/CreateUser";
 import ForgotPassword from "./admin/ForgotPassword";
 import UserList from "./admin/UserList";
-import BookingForm from "./user/BookingForm";
-import SuccessfulBooking from "./user/SuccessfullBooking";
 import FullList from "./admin/Booked/FullList";
 import Approval from "./admin/Booked/Approval";
 import NewPassword from "./components/NewPassword";
@@ -17,36 +15,56 @@ import ProtectedRoute from "./ProtectedRoute";
 import "./App.css";
 import LandingPage from "./Homepages/LandingPage";
 
-
 function App() {
-
   return (
     <div className="App">
-    
       <Routes>
         {/* Public Routes */}
-        <Route path="/" element={<LandingPage/> }/>
+        <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Home />} />
-      
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/forbidden" element={<Forbidden />} />
-  
-        {/* Public Booking Routes */}
+
+        {/* Booking views open inside the dashboard sidebar layout. */}
         <Route
           path="/booking"
           element={
-            <ProtectedRoute requiredRole={["Admin", "Hr", "User"]}>
-              <BookingForm />
-            </ProtectedRoute>
+            <Navigate
+              to="/dashboard"
+              state={{ section: "conference", item: "booking" }}
+              replace
+            />
           }
         />
         <Route
           path="/checking"
           element={
-            <ProtectedRoute requiredRole={["Admin", "Hr", "User"]}>
-              <SuccessfulBooking />
-            </ProtectedRoute>
+            <Navigate
+              to="/dashboard"
+              state={{ section: "conference", item: "calendar" }}
+              replace
+            />
+          }
+        />
+        <Route
+          path="/my-meetings"
+          element={
+            <Navigate
+              to="/dashboard"
+              state={{ section: "conference", item: "calendar" }}
+              replace
+            />
+          }
+        />
+        <Route
+          path="/calendar"
+          element={
+            <Navigate
+              to="/dashboard"
+              state={{ section: "conference", item: "calendar" }}
+              replace
+            />
           }
         />
 
@@ -108,9 +126,8 @@ function App() {
           }
         />
       </Routes>
-      
     </div>
   );
 }
-export default App;
 
+export default App;

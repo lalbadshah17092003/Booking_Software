@@ -6,6 +6,8 @@ import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import "./MyCalendar.css";
 
+const API_BASE = process.env.REACT_APP_API_URL || "https://192.168.0.150:5000/api";
+
 const MyCalendar = () => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -26,15 +28,42 @@ const MyCalendar = () => {
     const fetchBookings = async () => {
       setLoading(true);
       try {
-        const response = await axios.get("https://01-30225:1010/api/booking");
+        const token = sessionStorage.getItem("token");
+        const [allResult, successfulResult, mineResult] = await Promise.allSettled([
+          axios.get(`${API_BASE}/booking`),
+          axios.get(`${API_BASE}/booking/successful`),
+          token
+            ? axios.get(`${API_BASE}/booking/my-booking`, {
+                headers: { Authorization: `Bearer ${token}` },
+              })
+            : Promise.resolve({ data: [] }),
+        ]);
 
-        // Filter bookings by status ("approved" and "ongoing")
-        const filteredBookings = response.data.filter(
-          (booking) =>
-            booking.status === "approved" || booking.status === "ongoing",
-        );
+        const asArray = (result) =>
+          result.status === "fulfilled" && Array.isArray(result.value.data)
+            ? result.value.data
+            : [];
+        const confirmedStatuses = new Set([
+          "approved",
+          "confirmed",
+          "ongoing",
+        ]);
+        const merged = new Map();
 
-        setBookings(filteredBookings);
+        [...asArray(allResult), ...asArray(successfulResult)]
+          .filter((booking) => confirmedStatuses.has(String(booking.status).toLowerCase()))
+          .forEach((booking) => {
+            merged.set(booking._id, { ...booking, isMine: false });
+          });
+
+        asArray(mineResult)
+          .filter((booking) => String(booking.status).toLowerCase() !== "completed")
+          .forEach((booking) => {
+          const existing = merged.get(booking._id);
+          merged.set(booking._id, { ...(existing || {}), ...booking, isMine: true });
+          });
+
+        setBookings(Array.from(merged.values()));
       } catch (err) {
         console.error("Error fetching bookings", err);
       } finally {
@@ -53,16 +82,29 @@ const MyCalendar = () => {
   const filteredBookings = bookings.filter((booking) => {
     const matchesRoom = filter.room ? booking.room === filter.room : true;
     const matchesDate = filter.date ? booking.date === filter.date : true;
-    const matchesTitle = booking.empName
+    const matchesTitle = String(booking.empName || "")
       .toLowerCase()
       .includes(filter.title.toLowerCase());
     return matchesRoom && matchesDate && matchesTitle;
   });
 
   // Convert bookings to FullCalendar event format
-  const formattedBookings = filteredBookings.map((booking) => ({
+  const formattedBookings = filteredBookings.map((booking) => {
+    const status = String(booking.status || "pending").toLowerCase();
+    const colors = {
+      approved: "#218838",
+      confirmed: "#218838",
+      ongoing: "#087ea4",
+      completed: "#687386",
+      pending: "#d98200",
+      declined: "#bd3445",
+      cancelled: "#bd3445",
+      closed: "#687386",
+    };
+    const color = colors[status] || "#165283";
+    return {
     id: booking._id,
-    title: `${booking.empName} - ${booking.room}`,
+    title: `${booking.isMine ? "My meeting · " : ""}${booking.empName || "Meeting"} - ${booking.room || "Room"}`,
     start: `${booking.date}T${booking.startTime}`,
     end: `${booking.date}T${booking.endTime}`,
     extendedProps: {
@@ -76,12 +118,14 @@ const MyCalendar = () => {
       startTime: booking.startTime,
       endTime: booking.endTime,
       date: booking.date,
+      isMine: booking.isMine,
     },
-    className: `calendar-event-${booking.status}`,
-    backgroundColor: booking.status === "approved" ? "#28a745" : "#007bff",
-    borderColor: booking.status === "approved" ? "#28a745" : "#007bff",
+    className: [`calendar-event-${status}`, ...(booking.isMine ? ["calendar-event-mine"] : [])],
+    backgroundColor: color,
+    borderColor: color,
     textColor: "#ffffff",
-  }));
+  };
+  });
 
   const handleEventClick = (info) => {
     setSelectedEvent({
@@ -99,6 +143,7 @@ const MyCalendar = () => {
       date: info.event.extendedProps.date,
       startTimeOnly: info.event.extendedProps.startTime,
       endTimeOnly: info.event.extendedProps.endTime,
+      isMine: info.event.extendedProps.isMine,
     });
     setShowEventDetails(true);
   };
@@ -208,7 +253,8 @@ const MyCalendar = () => {
   };
 
   const getStatusBadgeClass = (status) => {
-    return status === "approved" ? "status-approved" : "status-ongoing";
+    const normalized = String(status || "pending").toLowerCase();
+    return `status-${normalized === "confirmed" ? "approved" : normalized}`;
   };
 
   // Skeleton Loader
@@ -239,8 +285,7 @@ const MyCalendar = () => {
             Meeting Calendar
           </h1>
           <p className="hero-subtitle">
-            View all approved and ongoing meetings in calendar
-            view
+            View approved, ongoing, and your own upcoming meetings in one calendar.
           </p>
         </div>
       </div>
@@ -332,6 +377,10 @@ const MyCalendar = () => {
           <div className="legend-item">
             <div className="legend-color ongoing"></div>
             <span>Ongoing Meetings</span>
+          </div>
+          <div className="legend-item">
+            <div className="legend-color mine"></div>
+            <span>My meetings</span>
           </div>
         </div>
 
@@ -468,8 +517,18 @@ const MyCalendar = () => {
                   <span
                     className={`status-badge-calendar ${getStatusBadgeClass(selectedEvent.status)}`}
                   >
-                    {selectedEvent.status.toUpperCase()}
+                    {String(selectedEvent.status || "pending").toUpperCase()}
                   </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="detail-section">
+              <div className="detail-item">
+                <span className="detail-icon">👤</span>
+                <div className="detail-content">
+                  <label>{selectedEvent.isMine ? "My meeting" : "Organizer"}</label>
+                  <p>{selectedEvent.employeeName || "Unknown"}</p>
                 </div>
               </div>
             </div>

@@ -6,7 +6,7 @@ import { jsPDF } from "jspdf";
 import "jspdf-autotable";
 import "./Reports.css";
 
-const API_BASE = "https://01-30225:1010/api/booking"; // Backend server address
+const API_BASE = "https://192.168.0.150:5000/api/booking"; // Backend server address
 
 const Reports = () => {
   const [bookings, setBookings] = useState([]);

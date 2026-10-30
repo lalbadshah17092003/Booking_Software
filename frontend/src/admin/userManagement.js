@@ -4,7 +4,7 @@
 
 import axios from "axios";
 
-const API_BASE = "https://01-30225:1010/api";
+const API_BASE = "https://192.168.0.150:5000/api";
 
 /**
  * Validate Employee ID (must be AP followed by 4 digits)

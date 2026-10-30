@@ -43,7 +43,7 @@ const OverallDashboard = () => {
       setLoading(true);
       try {
         const response = await axios.get(
-          "https://01-30225:1010/api/booking"
+          "https://192.168.0.150:5000/api/booking"
         );
         setBookings(response.data);
       } catch (err) {

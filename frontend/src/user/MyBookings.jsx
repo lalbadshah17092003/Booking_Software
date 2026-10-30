@@ -28,7 +28,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 // ============================================
 // API & SERVICE HELPERS (compressed)
 // ============================================
-const API_BASE = process.env.REACT_APP_API_URL || "https://01-30225:1010/api";
+const API_BASE = process.env.REACT_APP_API_URL || "https://192.168.0.150:5000/api";
 
 const api = axios.create({ baseURL: API_BASE, timeout: 15000 });
 api.interceptors.request.use((config) => {

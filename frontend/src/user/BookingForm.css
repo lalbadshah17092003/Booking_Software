@@ -1,0 +1,588 @@
+/*
+ * Room Booking UI Refresh
+ * Apply after the existing BookingForm.css import.
+ * Visual-only overrides: does not change React state, validation, API calls, or booking rules.
+ */
+
+:root {
+  --booking-primary: #165283;
+  --booking-primary-hover: #0e3d61;
+  --booking-ink: #172b4d;
+  --booking-muted: #64748b;
+  --booking-page: #f4f7fb;
+  --booking-surface: #ffffff;
+  --booking-border: #e2e8f0;
+  --booking-selected: #eaf2fa;
+  --booking-radius: 16px;
+  --booking-shadow: 0 10px 30px rgba(20, 48, 80, 0.07);
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  background: var(--booking-page);
+  color: var(--booking-ink);
+}
+
+.MuiContainer-root {
+  width: 100%;
+}
+
+.MuiPaper-root {
+  border-color: var(--booking-border) !important;
+  box-shadow: 0 2px 10px rgba(20, 48, 80, 0.035) !important;
+}
+
+/* Main page canvas and primary booking surface */
+.MuiBox-root:has(> .MuiContainer-root) {
+  background: var(--booking-page) !important;
+}
+
+.MuiContainer-root > .MuiPaper-root {
+  overflow: hidden;
+  border-radius: 20px !important;
+  border: 1px solid var(--booking-border) !important;
+  box-shadow: var(--booking-shadow) !important;
+}
+
+/* Typography */
+.MuiTypography-h5,
+.MuiTypography-h6 {
+  letter-spacing: -0.025em;
+}
+
+.MuiTypography-h5 {
+  font-size: clamp(1.45rem, 2vw, 1.9rem) !important;
+}
+
+.MuiTypography-h6 {
+  font-size: 1.05rem !important;
+}
+
+.MuiTypography-body2,
+.MuiFormHelperText-root {
+  color: var(--booking-muted);
+}
+
+/* Form fields */
+.MuiTextField-root {
+  margin-top: 2px;
+}
+
+.MuiOutlinedInput-root {
+  min-height: 52px;
+  background: #fff;
+  border-radius: 11px !important;
+  transition: box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.MuiOutlinedInput-root fieldset {
+  border-color: #d7e0eb !important;
+}
+
+.MuiOutlinedInput-root:hover fieldset {
+  border-color: #9db5cd !important;
+}
+
+.MuiOutlinedInput-root.Mui-focused {
+  box-shadow: 0 0 0 3px rgba(22, 82, 131, 0.11);
+}
+
+.MuiOutlinedInput-root.Mui-focused fieldset {
+  border-width: 1px !important;
+  border-color: var(--booking-primary) !important;
+}
+
+.MuiInputLabel-root {
+  color: #60738a;
+}
+
+.MuiInputLabel-root.Mui-focused {
+  color: var(--booking-primary) !important;
+}
+
+.MuiFormHelperText-root {
+  margin-left: 2px !important;
+  line-height: 1.45;
+}
+
+/* Buttons */
+.MuiButton-root {
+  min-height: 44px;
+  border-radius: 11px !important;
+  font-weight: 650 !important;
+  letter-spacing: 0 !important;
+  transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease !important;
+}
+
+.MuiButton-containedPrimary,
+.MuiButton-contained {
+  box-shadow: 0 4px 10px rgba(22, 82, 131, 0.12) !important;
+}
+
+.MuiButton-containedPrimary:hover,
+.MuiButton-contained:hover {
+  background-color: var(--booking-primary-hover) !important;
+  box-shadow: 0 7px 16px rgba(22, 82, 131, 0.17) !important;
+  transform: translateY(-1px);
+}
+
+.MuiButton-outlined {
+  border-width: 1px !important;
+}
+
+.MuiButton-root:focus-visible,
+.MuiIconButton-root:focus-visible,
+.MuiChip-root:focus-visible,
+[role="button"]:focus-visible {
+  outline: 3px solid rgba(22, 82, 131, 0.35);
+  outline-offset: 2px;
+}
+
+/* Step progress */
+.MuiLinearProgress-root {
+  overflow: hidden;
+  border-radius: 999px !important;
+}
+
+.MuiAvatar-root {
+  box-shadow: 0 0 0 4px #fff;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.MuiAvatar-root:hover {
+  transform: translateY(-1px);
+}
+
+/* Selection panels and summary cards */
+.MuiGrid-container > .MuiGrid-item > .MuiPaper-root {
+  height: 100%;
+  border-radius: var(--booking-radius) !important;
+}
+
+.MuiGrid-container > .MuiGrid-item > .MuiPaper-root[style*="text-align: center"] {
+  border-style: dashed !important;
+}
+
+.MuiChip-root {
+  border-radius: 8px !important;
+  font-weight: 600;
+}
+
+.MuiAlert-root {
+  border-radius: 12px !important;
+  align-items: flex-start;
+}
+
+.MuiAlert-message {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* Schedule dialog */
+.MuiDialog-paper {
+  overflow: hidden;
+  border-radius: 18px !important;
+  border: 1px solid var(--booking-border);
+  box-shadow: 0 24px 70px rgba(16, 38, 65, 0.2) !important;
+}
+
+.MuiDialogTitle-root {
+  padding: 22px 24px !important;
+  background: #fbfdff;
+}
+
+.MuiDialogContent-root {
+  padding: 24px !important;
+}
+
+.MuiDialogActions-root {
+  gap: 8px;
+  padding: 16px 24px !important;
+  background: #fbfdff;
+}
+
+.MuiDialogContent-root .MuiTableContainer-root {
+  border-radius: 12px;
+  border-color: var(--booking-border) !important;
+}
+
+.MuiTableHead-root .MuiTableCell-root {
+  background: #f5f8fc;
+  color: #334e68;
+  font-weight: 700;
+}
+
+.MuiTableCell-root {
+  border-color: #edf1f6 !important;
+}
+
+/* React Select email fields */
+.css-1jqq78o-placeholder,
+[class*="placeholder"] {
+  color: #718096 !important;
+}
+
+[class*="control"] {
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+[class*="control"]:focus-within {
+  border-color: var(--booking-primary) !important;
+  box-shadow: 0 0 0 3px rgba(22, 82, 131, 0.1) !important;
+}
+
+/* Scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #b8c7d8 transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #b8c7d8;
+  border-radius: 999px;
+}
+
+/* Smaller screens */
+@media (max-width: 900px) {
+  .MuiContainer-root > .MuiPaper-root {
+    border-radius: 16px !important;
+  }
+
+  .MuiGrid-container {
+    row-gap: 4px;
+  }
+
+  .MuiDialogContent-root {
+    padding: 18px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    background: #fff;
+  }
+
+  .MuiContainer-root {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  .MuiContainer-root > .MuiPaper-root {
+    padding: 18px !important;
+    border-radius: 14px !important;
+    box-shadow: none !important;
+  }
+
+  .MuiTypography-h5 {
+    font-size: 1.35rem !important;
+  }
+
+  .MuiTypography-caption {
+    line-height: 1.35;
+  }
+
+  .MuiButton-root {
+    min-height: 46px;
+  }
+
+  .MuiDialog-paper {
+    margin: 10px !important;
+    width: calc(100% - 20px) !important;
+    max-height: calc(100% - 20px) !important;
+    border-radius: 14px !important;
+  }
+
+  .MuiDialogTitle-root {
+    padding: 16px !important;
+  }
+
+  .MuiDialogContent-root {
+    padding: 16px !important;
+  }
+
+  .MuiDialogActions-root {
+    padding: 12px 16px !important;
+    flex-wrap: wrap;
+  }
+
+  .MuiDialogActions-root .MuiButton-root {
+    flex: 1 1 auto;
+  }
+
+  .MuiTableContainer-root {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .MuiTableCell-root {
+    white-space: nowrap;
+    padding: 9px 10px !important;
+  }
+}
+
+/* Respect system reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Booking workspace layout */
+.booking-page-surface {
+  border: 1px solid var(--booking-border) !important;
+  overflow: visible !important;
+}
+
+.booking-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 290px;
+  align-items: start;
+  gap: 28px;
+}
+
+.booking-main { min-width: 0; }
+
+.booking-summary {
+  position: sticky;
+  top: 20px;
+  padding: 18px !important;
+  border-radius: 14px !important;
+  background: #fbfdff !important;
+}
+
+.booking-summary-toggle {
+  display: flex !important;
+  width: 100%;
+  justify-content: space-between !important;
+  padding: 0 !important;
+  color: var(--booking-ink) !important;
+  text-align: left;
+}
+
+.booking-summary-chevron { font-size: 24px; }
+.booking-summary-content { display: block; }
+
+.booking-summary-line {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 8px 0;
+  overflow-wrap: anywhere;
+}
+
+.booking-summary-line .MuiTypography-caption { color: var(--booking-muted); }
+
+.booking-workspace { display: flex; flex-direction: column; gap: 22px; }
+
+.booking-section {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e8edf3;
+}
+
+.booking-section:last-child { border-bottom: 0; }
+
+.booking-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.booking-room-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+}
+
+.booking-room-option.MuiButton-root {
+  position: relative;
+  min-height: 108px;
+  padding: 16px !important;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  border-color: #d9e2ec;
+  color: var(--booking-ink);
+  text-align: left;
+}
+
+.booking-room-option.MuiButton-root.selected {
+  border: 2px solid var(--booking-primary);
+  background: var(--booking-selected);
+}
+
+.booking-room-option small { color: var(--booking-muted); font-size: 12px; }
+.booking-room-option .booking-room-check { position: absolute; top: 12px; right: 12px; color: #2e7d32; }
+.booking-room-option .booking-room-busy { color: #b42318; }
+
+.booking-duration-inline {
+  height: 100%;
+  min-height: 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 12px;
+  border-radius: 10px;
+  background: #f4f7fb;
+}
+
+.booking-review { padding: 8px 0; }
+.booking-actions { margin-top: 24px !important; }
+
+.booking-availability-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 12px;
+  color: var(--booking-muted);
+  font-size: 12px;
+}
+
+.booking-availability-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.booking-availability-legend i { width: 12px; height: 12px; border: 1px solid #cbd5e1; border-radius: 4px; background: #fff; }
+.booking-availability-legend i.selected { border-color: var(--booking-primary); background: #e8f0f7; }
+.booking-availability-legend i.booked { border-color: #ef9a9a; background: #ffebee; }
+.booking-availability-legend i.past { background: #f1f3f5; }
+
+.booking-time-slot { user-select: none; }
+.booking-time-slot.is-booked { background: #ffebee !important; border-color: #ef9a9a !important; color: #b42318 !important; }
+.booking-time-slot.is-selected { background: #e8f0f7 !important; border-color: var(--booking-primary) !important; color: var(--booking-primary) !important; }
+.booking-time-slot.is-past { background: #f1f3f5 !important; border-color: #e0e4e8 !important; color: #8a94a3 !important; }
+
+.booking-schedule-dialog .MuiDialog-paper { width: min(960px, calc(100% - 32px)); }
+
+@media (max-width: 900px) {
+  .booking-layout { grid-template-columns: minmax(0, 1fr) 250px; gap: 18px; }
+}
+
+@media (max-width: 700px) {
+  .booking-layout { display: flex; flex-direction: column; gap: 16px; }
+  .booking-main, .booking-summary { width: 100%; }
+  .booking-summary { position: static; order: -1; padding: 12px 14px !important; }
+  .booking-summary-content { display: none; }
+  .booking-summary.is-open .booking-summary-content { display: block; }
+  .booking-section-heading { align-items: flex-start; }
+  .booking-actions {
+    position: sticky;
+    bottom: 0;
+    z-index: 5;
+    margin: 18px -12px -12px !important;
+    padding: 12px !important;
+    background: rgba(255,255,255,.97);
+    box-shadow: 0 -8px 20px rgba(20,48,80,.08);
+  }
+  .booking-actions > .MuiBox-root { gap: 8px !important; }
+  .booking-actions .MuiButton-root { padding-left: 12px; padding-right: 12px; }
+  .booking-schedule-dialog .MuiDialog-paper { width: 100%; margin: 0; border-radius: 0 !important; }
+}
+
+/* Structured meeting details */
+.booking-details-grid { align-items: stretch; }
+
+.booking-details-grid.MuiGrid-container {
+  display: grid !important;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 16px;
+  width: 100%;
+  margin: 0 !important;
+}
+
+.booking-details-grid > .MuiGrid-item {
+  box-sizing: border-box;
+  width: auto !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  padding: 0 !important;
+}
+
+.booking-details-cell-organizer { grid-column: span 2; }
+.booking-details-cell-employee-id,
+.booking-details-cell-employee-name { grid-column: span 5; }
+.booking-details-cell-email,
+.booking-details-cell-cc,
+.booking-details-cell-recurrence,
+.booking-details-cell-agenda { grid-column: span 6; }
+
+.booking-details-organizer-label {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.booking-details-section-title {
+  padding: 2px 2px 4px;
+  color: #334155;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.booking-details-field-card {
+  box-sizing: border-box;
+  height: 100%;
+  min-width: 0;
+  overflow: hidden;
+  padding: 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.booking-details-tall-card {
+  min-height: 220px;
+}
+
+.booking-details-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #edf1f5;
+}
+
+.booking-details-field-label {
+  margin: 0 0 7px !important;
+  color: #334155;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+}
+
+.booking-details-field-label > span:first-child:not(.optional-label) {
+  color: #b42318;
+}
+
+.booking-details-field-label .optional-label {
+  margin-left: 6px;
+  color: #64748b;
+  font-size: 0.72rem;
+  font-weight: 400;
+}
+
+@media (max-width: 600px) {
+  .booking-details-field-card { padding: 13px; }
+  .booking-details-tall-card { min-height: 0; }
+  .booking-details-heading { margin-bottom: 12px; }
+}
+
+@media (max-width: 899px) {
+  .booking-details-grid.MuiGrid-container {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .booking-details-grid > .MuiGrid-item { grid-column: 1 / -1; }
+}

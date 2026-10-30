@@ -77,7 +77,7 @@ const MyMeeting = () => {
       }
 
       const response = await axios.get(
-        "https://01-30225:1010/api/booking/my-booking",
+        "https://192.168.0.150:5000/api/booking/my-booking",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -176,7 +176,7 @@ const MyMeeting = () => {
     try {
       const token = sessionStorage.getItem("token");
       await axios.put(
-        `https://01-30225:1010/update-byuser/${currentMeeting._id}`,
+        `https://192.168.0.150:5000/update-byuser/${currentMeeting._id}`,
         {
           ...updatedData,
           room: selectedRoom,
@@ -210,7 +210,7 @@ const MyMeeting = () => {
       try {
         const token = sessionStorage.getItem("token");
         await axios.put(
-          `https://01-30225:1010/api/booking/${meetingId}`,
+          `https://192.168.0.150:5000/api/booking/${meetingId}`,
           { status: "cancelled" },
           {
             headers: { Authorization: `Bearer ${token}` },
@@ -238,7 +238,7 @@ const MyMeeting = () => {
     try {
       const token = sessionStorage.getItem("token");
       await axios.post(
-        "https://01-30225:1010/api/booking/close",
+        "https://192.168.0.150:5000/api/booking/close",
         { bookingId: meetingId },
         {
           headers: { Authorization: `Bearer ${token}` },

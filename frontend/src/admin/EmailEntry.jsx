@@ -27,7 +27,7 @@ const EmailEntry = () => {
   const [uploadResults, setUploadResults] = useState(null);
   const [showUploadResults, setShowUploadResults] = useState(false);
 
-  const BASE_URL = "https://01-30225:1010/api/email-entry";
+  const BASE_URL = "https://192.168.0.150:5000/api/email-entry";
 
   const fetchData = async (page = 1, search = "") => {
     setLoading(true);
